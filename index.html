@@ -1,12 +1,18 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#4F46E5">
+    <meta name="description" content="Agenda diária inteligente para produtividade, foco e organização pessoal." />
     <title>Smart Daily Planner</title>
+    
+    <!-- Favicon (Emoji) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📅</text></svg>">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -17,6 +23,16 @@
               secondary: '#10B981', // Emerald 500
               background: '#F3F4F6', // Gray 100
               surface: '#ffffff',
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.3s ease-out forwards',
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
             }
           }
         }
@@ -25,26 +41,32 @@
     <style>
       /* Custom scrollbar for better aesthetics */
       ::-webkit-scrollbar {
-        width: 8px;
+        width: 6px;
+        height: 6px;
       }
       ::-webkit-scrollbar-track {
-        background: #f1f1f1; 
+        background: transparent; 
       }
       .dark ::-webkit-scrollbar-track {
-        background: #1f2937;
+        background: transparent;
       }
       ::-webkit-scrollbar-thumb {
-        background: #c1c1c1; 
-        border-radius: 4px;
+        background: #d1d5db; 
+        border-radius: 3px;
       }
       .dark ::-webkit-scrollbar-thumb {
         background: #4b5563;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #a8a8a8; 
+        background: #9ca3af; 
       }
       .dark ::-webkit-scrollbar-thumb:hover {
         background: #6b7280;
+      }
+      
+      /* Remove highlight on mobile tap */
+      * {
+        -webkit-tap-highlight-color: transparent;
       }
     </style>
   <script type="importmap">
@@ -54,12 +76,15 @@
     "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "date-fns/": "https://esm.sh/date-fns@^4.1.0/",
-    "date-fns": "https://esm.sh/date-fns@^4.1.0"
+    "date-fns": "https://esm.sh/date-fns@^4.1.0",
+    "date-fns/locale": "https://esm.sh/date-fns@^4.1.0/locale"
   }
 }
 </script>
 </head>
-  <body class="bg-background text-gray-800 h-screen overflow-hidden dark:bg-gray-900 dark:text-gray-100">
+  <body class="bg-background text-gray-800 h-screen overflow-hidden dark:bg-gray-900 dark:text-gray-100 selection:bg-primary selection:text-white">
     <div id="root" class="h-full flex flex-col"></div>
+    <!-- Entry point script for the React Application -->
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>

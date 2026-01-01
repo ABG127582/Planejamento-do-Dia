@@ -310,6 +310,12 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem(THEME_KEY, isDarkMode ? 'dark' : 'light');
+    // Also update body class for full page background
+    if (isDarkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
   }, [isDarkMode]);
 
   useEffect(() => {
@@ -351,6 +357,15 @@ function App() {
           e.endTime > nowStr
       );
   }, [timedEvents, currentDate, currentTime]);
+
+  // Update document title based on active task
+  useEffect(() => {
+    if (activeTask) {
+      document.title = `▶ ${activeTask.title} | Smart Planner`;
+    } else {
+      document.title = `Smart Daily Planner`;
+    }
+  }, [activeTask]);
 
   // --- Toast Handlers ---
   const addToast = (message: string, type: Toast['type'], action?: Toast['action']) => {
